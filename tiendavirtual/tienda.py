@@ -1,54 +1,45 @@
 from itertools import product
+class Producto:
+    def __init__(self, nombre, precio):
+        self.nombre: str = nombre
+        self.precio: int = precio
 
+    def mostrar_info(self) -> str:
+        return f"El nombre del producto es: {self.nombre} y el precio {self.precio}"
 
-class Product:
+p1: Producto = Producto("Tuki", 99)
+print(p1.mostrar_info())
 
-    def __init__(self,name, price: float):
+class Cliente:
+    def __init__(self, nombre, carrito):
+        self.nombre: str = nombre
+        self.carrito: list[Producto] = []
 
-        self.name: str = name
-        self.price: float = price
+    def agregar_producto(self, producto: Producto):
+        self.carrito.append(producto)
 
+    def mostrar_carrito(self) -> str:
+        productos_str: str = ""
+        for producto in self.carrito:
+            productos_str += producto.mostrar_info() + "\n"
+        return productos_str
 
-    def show_info(self)->str:
-        return f"El nombre del producto es: {self.name} y el precio es {self.price}"
+    def calcular_total(self):
+        total: float = 0
+        for producto in self.carrito:
+            total += producto.precio
+        return total
 
+class Tienda:
+    def __init__(self, nombre, productos):
+        self.nombre: str = nombre
+        self.productos: list[Producto] = []
 
+    def agregar_producto(self, producto: Producto):
+        self.productos.append(producto)
 
-
-class Client:
-
-    def __init__(self, name, cart):
-
-        self.name:str = name
-        self.cart: list[Product] = []
-
-    def add_product(self, product: Product):
-        self.cart.append(product)
-
-    def show_cart(self):
-        products_str: str = ""
-        for product in self.cart:
-            products_str: str = ""
-            products_str += product.show_info() + "\n"
-
-    def calculate_total(self):
-        total: float=0
-        for product in  self.cart:
-            total +=    product.price
-
-
-
-class Shop:
-
-    def __init__(self, name, products):
-
-        self.name: str = name
-        self.products: list[Product] = products
-
-    def add_product(self, product: Product):
-        self.products.append(product)
-    def show_products(self):
-        products_str: str = ""
-        for product in self.products:
-            products_str += product.show_info() +"\n"
-        return products_str
+    def mostrar_producto(self):
+        productos_str: str = ""
+        for producto in self.productos:
+            productos_str += producto.mostrar_info() + "\n"
+        return productos_str
